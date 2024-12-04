@@ -21,10 +21,16 @@ setItems (items.filter(item => item.id !== id));
         });
     };
 
+const logOut = () => {
+    localStorage.removeItem ('token')
+    window.location.reload();
+}
+
 return (
     <div>
         <h1>Inventory</h1>
         <ItemForm setItems={setItems} />
+        <button onClick={logOut}> Log Out </button>
         <ul>
             {items.map((item) => {
                 return(

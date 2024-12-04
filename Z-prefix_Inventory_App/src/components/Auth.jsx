@@ -29,6 +29,8 @@ const Auth = () => {
     }
 };
 
+
+
 return (
     <form onSubmit= {handleClick}>
         <h2>{isLogin ? 'Login' : 'Register'}</h2>
@@ -44,17 +46,13 @@ return (
         value={password}
         onChange={event=> setPassword(event.target.value)}
         />
-        <button
-            type= "submit">{isLogin ? 'Login' : 'Register'}
-        </button>
-        <button
-            type ="button"
-            onClick={() => setIsLogin(!isLogin)}>
+        <button type= "submit">{isLogin ? 'Login' : 'Register'} </button>
+        <button type ="button" onClick={() => setIsLogin(!isLogin)}>
             Switch to {isLogin ? 'Register' : 'Login'}
         </button>
-
     </form>
-);
+
+    );
 };
 
 export default Auth;
