@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const ItemForm = () => {
     const [name, setName] = useState ('');
@@ -6,10 +6,22 @@ const ItemForm = () => {
     const [quantity, setQuantity] = useState(1);
     const [items, setItems] = useState([]);
 
+    useEffect(() => {
+        itemList();
+    },[]);
+
+    const itemList = () => {
+        fetch('http://localhost:3001/items')
+        .then(resppnse => response.json())
+        .then(data => {
+            setItems(data);
+        })
+    }
+
     const addItem = (event) => {
         event.preventDefault ();
 
-        fetch('http://localhost:3000/items', {
+        fetch('http://localhost:3001/items', {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
@@ -22,7 +34,7 @@ const ItemForm = () => {
             }
             return response.json();
             })
-        .then ((newItem) => {
+        .then ((newItems) => {
             const updatedItems = items.slice();
             updatedItems.push(newItems);
             setItems(updatedItems);
@@ -34,6 +46,7 @@ const ItemForm = () => {
 
 
 return ( 
+    <div>
     <form onSubmit= {addItem}>
         <h2>Add an Item</h2>
         <input
@@ -54,6 +67,17 @@ return (
         />
         <button type="submit"> Add Item </button>
     </form>
+    <h2>Current Inventory List</h2>
+    <ul>
+        {items.map((item, index) => (
+        <li>
+           <div> Name: {item.name} </div>
+            <div>Description: {item.description} </div>
+            <div> Quantity: {item.quantity} </div>
+        </li>
+        ))}
+    </ul> 
+    </div> 
 );
 };
 
