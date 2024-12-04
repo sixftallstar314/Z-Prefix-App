@@ -7,7 +7,7 @@ const Auth = () => {
 
     const handleClick = async (event) => {
         event.preventDefault();
-    let url = 'http://localhost:3000/';
+    let url = 'http://localhost:3001/';
     if (isLogin) {
         url += 'login'
     } else {
