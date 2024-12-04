@@ -6,20 +6,19 @@ const Inventory = () => {
 
 useEffect(() => {
     const getItems = async () => {
-    fetch ('http://localhost:3000/items')
+    fetch ('http://localhost:3001/items')
         .then(response => response.json())
-        .then(items => SetItems(items));
+        .then(items => setItems(items));
     };
 getItems();
 },[]);
 
-const deleteItem = function(id) {
-    fetch (`http://localhost:3000/items/${id}`, { method: 'DELETE'})
+const deleteItem = (id) => {
+    fetch (`http://localhost:3001/items/${id}`, { method: 'DELETE'})
     .then(() => {
 setItems (items.filter(item => item.id !== id));
-    return items.id !== id;
-        });
-    };
+    });
+};
 
 const logOut = () => {
     localStorage.removeItem ('token')
@@ -31,18 +30,18 @@ return (
         <h1>Inventory</h1>
         <ItemForm setItems={setItems} />
         <button onClick={logOut}> Log Out </button>
-        <ul>
-            {items.map((item) => {
-                return(
+        <ol>
+            {items.map((item) => (
                     <li key={item.id}>
-                        {item.name} - {item.description.substring(0, 100)}...{''}
-                        <button onCLick={function () {deletetItem(item.id)}}>Delete</button>
+                        <div> Name: {item.name} </div>
+                        <div>Description: {item.description} </div>
+                        <div> Quantity: {item.quantity} </div>
+                        <button onClick={() => deleteItem(item.id)}>Delete</button>
                     </li>
-                )
-            })}
-        </ul>
+            ))}
+        </ol>
     </div>
-);
+    );
 };
 
 export default Inventory;

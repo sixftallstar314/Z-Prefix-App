@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 const ItemForm = () => {
     const [name, setName] = useState ('');
     const [description, setDescription] = useState('');
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState('');
     const [items, setItems] = useState([]);
 
     useEffect(() => {
@@ -12,7 +12,7 @@ const ItemForm = () => {
 
     const itemList = () => {
         fetch('http://localhost:3001/items')
-        .then(resppnse => response.json())
+        .then(response => response.json())
         .then(data => {
             setItems(data);
         })
@@ -56,12 +56,14 @@ return (
         onChange={(event) => setName(event.target.value)}
         />
         <input 
+        type = "text"
         placeholder="Description"
         value={description}
         onChange={(event) => setDescription(event.target.value)}
         />
         <input
-        placeholder="Qusntity"
+        type = "number"
+        placeholder="Quantity"
         value={quantity}
         onChange={(event) => setQuantity(event.target.value)}
         />
@@ -70,7 +72,7 @@ return (
     <h2>Current Inventory List</h2>
     <ul>
         {items.map((item, index) => (
-        <li>
+        <li key= {item.id}>
            <div> Name: {item.name} </div>
             <div>Description: {item.description} </div>
             <div> Quantity: {item.quantity} </div>
