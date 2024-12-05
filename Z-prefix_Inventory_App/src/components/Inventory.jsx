@@ -17,7 +17,7 @@ const deleteItem = (id) => {
     fetch (`http://localhost:3001/items/${id}`, { method: 'DELETE'})
     .then(() => {
 setItems (items.filter(item => item.id !== id));
-    });
+    })
 };
 
 const logOut = () => {
@@ -31,6 +31,7 @@ return (
         <ItemForm setItems={setItems} />
         <button onClick={logOut}> Log Out </button>
         <ol>
+            <h2>Current Inventory </h2>
             {items.map((item) => (
                     <li key={item.id}>
                         <div> Name: {item.name} </div>
