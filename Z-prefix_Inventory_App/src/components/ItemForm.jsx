@@ -5,9 +5,9 @@ const ItemForm = ({setItems}) => {
     const [description, setDescription] = useState('');
     const [quantity, setQuantity] = useState('');
     
-    const handleSubmit = (event) => {
+    const submitAction = (event) => {
         event.preventDefault();
-        const newItem ={ name, description, quantity};
+        
     
     fetch('http://localhost:3001/items', {
             method: 'POST',
@@ -21,7 +21,7 @@ const ItemForm = ({setItems}) => {
 };
 
 return ( 
-    <form onSubmit= {handleSubmit}>
+    <form onSubmit= {submitAction}>
         <input
         type = "text"
         placeholder = "name"
