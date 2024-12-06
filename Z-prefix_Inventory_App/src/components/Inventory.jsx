@@ -6,6 +6,17 @@ const Inventory = () => {
     const [items, setItems] =useState([]);
     const [editMode, setEditMode] = useState(null);
     const [editedItem, setEditedItem]= useState({});
+    
+// automatic logout on window closing 
+useEffect(() => {
+    const windowClose = () => {
+        localStorage.removeItem('token')
+    };
+    window.addEventListener('beforeunload', windowClose);
+    return () => {
+        window.removeEventListener('beforeunload', windowClose);
+    };
+},[]);
 
 //Fetch items from server
 useEffect(() => {
