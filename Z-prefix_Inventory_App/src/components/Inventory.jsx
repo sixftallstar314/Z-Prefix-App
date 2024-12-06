@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ItemForm from "./ItemForm";
 
+
 const Inventory = () => {
     const [items, setItems] =useState([]);
     const [editMode, setEditMode] = useState(null);
@@ -71,9 +72,13 @@ const updateItem = (id) => {
 //rendering
 return (
     <div>
+       <div className="container">
         <h1>Inventory Manager Made Easy </h1>
+        </div>
         <ItemForm setItems={setItems} />
-        <button onClick={logOut}> Log Out </button>
+        <div className="logout-container">
+            <button onClick={logOut}> Log Out </button>
+        </div>
         <ol>
             <h2>Current Inventory </h2>
             {items.map((item) => (

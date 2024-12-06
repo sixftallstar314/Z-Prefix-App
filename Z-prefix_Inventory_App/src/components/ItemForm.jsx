@@ -48,7 +48,9 @@ const ItemForm = ({setItems}) => {
 
 return ( 
     <form onSubmit= {submitAction}>
+        <div className='newItemContainer'>
         <h2>Add New Item</h2>
+        </div>
         <input
         type = "text"
         name = 'name'
