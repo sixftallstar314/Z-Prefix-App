@@ -35,6 +35,7 @@ const Auth = () => {
 
 return (
     <form onSubmit= {handleClick}>
+      <h1 className ="title"> Inventory Manager </h1>
         <h2>{isLogin ? 'Login' : 'Register'}</h2>
         <input
         type="text"
