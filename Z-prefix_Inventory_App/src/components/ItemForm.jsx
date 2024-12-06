@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 //define state for name description and quantity
 const ItemForm = ({setItems}) => {
-    const [formData, setFromData] = useState({
+    const [formData, setFormData] = useState({
         name: '',
         description: '',
         quantity:''
@@ -14,7 +14,7 @@ const ItemForm = ({setItems}) => {
 
         const newFormData = Object.assign({}, formData);
         newFormData[name] = value;
-        setFromData(newFormData);
+        setFormData(newFormData);
     };
 
     const submitAction = (event) => {
@@ -36,6 +36,13 @@ const ItemForm = ({setItems}) => {
                 updatedItems.push(newItem);
                 return updatedItems
             });
+
+            //clears form data
+            setFormData({
+                name:'',
+                description:'',
+                quantity:''
+            })
         })
     };
 
