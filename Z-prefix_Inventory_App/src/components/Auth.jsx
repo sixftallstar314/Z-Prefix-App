@@ -4,30 +4,32 @@ const Auth = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isLogin, setIsLogin] = useState(true);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleClick = async (event) => {
+    const handleClick = (event) => {
         event.preventDefault();
-    let url = 'http://localhost:3001/';
-    if (isLogin) {
-        url += 'login'
-    } else {
-        url += 'register'
-    }
-
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type' : 'application/json' }, 
-        body: JSON.stringify({username: username, password: password})
-        });
-    
-    if (response.ok) {
-        let data =await response.json();
-        localStorage.setItem('token', data.token);
-        window.location.reload ();
-    } else {
-        console.error ('failure to authenticate')
-    }
-};
+        let endpoint = 'register';
+        if (isLogin) {
+          endpoint = 'login';
+        }
+        const url = 'http://localhost:3001/' + endpoint;
+        fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('failed to authenticate');
+          })
+          .then((data) => {
+            localStorage.setItem('token', data.token);
+            window.location.reload();
+          })
+          .catch(() => setErrorMessage('Failure to authenticate'));
+      };
 
 
 

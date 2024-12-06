@@ -1,44 +1,67 @@
 import React, { useState, useEffect } from 'react'
 
+//define state for name description and quantity
 const ItemForm = ({setItems}) => {
-    const [name, setName] = useState ('');
-    const [description, setDescription] = useState('');
-    const [quantity, setQuantity] = useState('');
-    
+    const [formData, setFromData] = useState({
+        name: '',
+        description: '',
+        quantity:''
+    });
+// function to handle changes 
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        const newFormData = Object.assign({}, formData);
+        newFormData[name] = value;
+        setFromData(newFormData);
+    };
+
     const submitAction = (event) => {
         event.preventDefault();
         
-    
+    //POST request to add new item 
     fetch('http://localhost:3001/items', {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
             },
-            body: JSON.stringify({ name: name, description: description, quantity: quantity}),
+            //convert state variables to JSON string 
+            body: JSON.stringify(formData),
         })
         .then (response => response.json())
-        .then (item => setItems (prevItems => [...prevItems, item]))
-};
+        .then ((newItem) => {
+            setItems((previousItems)=> {
+                const updatedItems = previousItems.slice();
+                updatedItems.push(newItem);
+                return updatedItems
+            });
+        })
+    };
 
 return ( 
     <form onSubmit= {submitAction}>
+        <h2>Add New Item</h2>
         <input
         type = "text"
-        placeholder = "name"
-        value={name}
-        onChange={(event) => setName(event.target.value)}
+        name = 'name'
+        placeholder= 'name'
+        value={formData.name}
+        onChange={handleChange}
         />
         <input 
         type = "text"
+        name="description"
         placeholder="Description"
-        value={description}
-        onChange={(event) => setDescription(event.target.value)}
+        value={formData.description}
+        onChange={handleChange}
         />
         <input
         type = "number"
+        name= 'quantity'
         placeholder="Quantity"
-        value={quantity}
-        onChange={(event) => setQuantity(event.target.value)}
+        value={formData.quantity}
+        onChange={handleChange}
         />
         <button type="submit"> Add Item </button>
     </form>
