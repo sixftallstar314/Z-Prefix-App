@@ -4,7 +4,7 @@ Z-prefix CRUD Application
 Welcome to the Front-End section of my CRUD "Inventory Manager" 
 
 Instructions for use: 
-1. run npm install 
+1. cd into Z-prefix_Inventory_App/ and run npm install. 
 2. clone back-end repo
 3. In the back-end repository be sure to edit the knexfile.js development details with your knex details.
 4. run node server.js 
